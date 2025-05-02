@@ -59,14 +59,14 @@ def signup(request):
 @login_required # Es importante tener configurado en el archivo settings.py, donde esta el login para que se redirecciones alli
 def tasks(request):
     tasks = Task.objects.filter(user=request.user, datecompleted__isnull=True) # filtro para que se muestre las tareas que son del usuario que hace la peticion. datecompleted__isnull es una propiedad que se le crea a datecompleted y significa si datecompleted esta vacia o no al momento de crearse una tarea
-    return render(request, "tasks.html", {
+    return render(request, "tasks_pendings.html", {
         "tasks": tasks
     })
 
 @login_required
 def tasks_completed(request):
     tasks = Task.objects.filter(user=request.user, datecompleted__isnull=False).order_by("-datecompleted") # Se puede ordenar las tareas y se pasa el parametro con el que se ordena
-    return render(request, "tasks.html", {
+    return render(request, "tasks_completed.html", {
         "tasks": tasks
     })
 
